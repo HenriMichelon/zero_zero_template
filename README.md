@@ -1,3 +1,3 @@
-# ZeroZero
+# ZeroZero template
 
-Examples for the [ZeroZero engine](https://github.com/HenriMichelon/zero_zero)
+Starer project for the [ZeroZero engine](https://henrimichelon.github.io/ZeroZero/)
