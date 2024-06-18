@@ -6,6 +6,7 @@ include(.env.cmake)
 
 #add_compile_definitions(NDEBUG)
 add_compile_definitions(USE_PCH)
+#add_compile_definitions(DISABLE_LOG)
 
 # Engine sources
 add_subdirectory(${Z0_PROJECT_DIR} external_lib_build)

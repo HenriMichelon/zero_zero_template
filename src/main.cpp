@@ -36,7 +36,8 @@ const ApplicationConfig applicationConfig {
     .windowWidth = 1920,
     .windowHeight = 1080,
     .defaultFontName = "res/fonts/OpenSans-Regular.ttf",
-    .defaultFontSize = 12
+    .defaultFontSize = 12,
+    .loggingMode = static_cast<LoggingMode>(LOGGING_FILE | LOGGING_WINDOW)
 };
 
 Z0_APP(applicationConfig, make_shared<MainScene>())
