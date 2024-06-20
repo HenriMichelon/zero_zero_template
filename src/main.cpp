@@ -18,14 +18,12 @@ void MainScene::onEnterScene() {
 
     menu->setHeight(textQuit->getHeight() + padding * 4);
     menu->setWidth(textQuit->getWidth() + padding * 4);
-    menu->setY(1000 - menu->getHeight());
+    menu->setY(VECTOR_SCALE.y - menu->getHeight());
 }
 
 void MainScene::onReady() {
-    log("Example ready");
-
     addChild(make_shared<Skybox>("res/textures/StandardCubeMap.png"));
-    addChild(make_shared<Environment>(vec4{1.0,1.0,1.0,0.6f}));
+    addChild(make_shared<Environment>(vec4{1.0,1.0,1.0,0.8f}));
     auto directionalLight = make_shared<DirectionalLight>(
         vec3{-1.0f, -1.0f, -1.0f},
         vec4{-0.5f, -0.5f, 1.0f, 1.0f}
@@ -47,6 +45,8 @@ void MainScene::onReady() {
     addChild(cube);
 
     captureMouse();
+
+    log("Main scene is ready");
 }
 
 void MainScene::onPhysicsProcess(float delta) {
