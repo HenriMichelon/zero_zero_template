@@ -123,7 +123,7 @@ const ApplicationConfig applicationConfig {
     .windowHeight = 1080,
     .defaultFontName = "res/fonts/MontserratMedium.otf",
     .defaultFontSize = 30,
-    .loggingMode = static_cast<LoggingMode>(LOGGING_FILE)
+    .loggingMode = LOGGING_FILE
 };
 
 Z0_APP(applicationConfig, make_shared<MainScene>())
