@@ -4,10 +4,6 @@ cmake_policy(SET CMP0002 NEW)
 project(template)
 include(.env.cmake)
 
-#add_compile_definitions(NDEBUG)
-add_compile_definitions(USE_PCH)
-#add_compile_definitions(DISABLE_LOG)
-
 # Engine sources
 add_subdirectory(${Z0_PROJECT_DIR} external_lib_build)
 set(Z0_INCLUDE_DIR ${Z0_PROJECT_DIR}/include)
@@ -27,12 +23,8 @@ include(cmake/shaders.cmake)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_COMPILE_WARNING_AS_ERROR OFF) # disabled due to fastgltf and VMA
+set(CMAKE_COMPILE_WARNING_AS_ERROR OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
-if(MINGW)
-	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mwindows")
-endif()
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
 # compile GLSL shaders
 file(GLOB_RECURSE GLSL_SOURCE_FILES
@@ -46,18 +38,19 @@ add_custom_target(AlwaysExecute ALL
 add_dependencies(AlwaysExecute ${PROJECT_NAME}_shaders)
 
 add_executable(${PROJECT_NAME}
-		${INCLUDE_DIR}/main.h
 		${SRC_DIR}/main.cpp
+)
+target_sources(${PROJECT_NAME}
+	PUBLIC
+	FILE_SET CXX_MODULES
+	FILES
+		${SRC_DIR}/main.cppm
 )
 
 add_dependencies(${PROJECT_NAME} ${Z0_SHARED_LIB} AlwaysExecute)
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIR} ${Z0_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} ${Z0_SHARED_LIB})
-add_compile_definitions(JPH_DISABLE_CUSTOM_ALLOCATOR)
-target_precompile_headers(${PROJECT_NAME} PRIVATE
-		${Z0_INCLUDE_DIR}/z0/libraries.h
-		${Z0_INCLUDE_DIR}/z0/z0.h
-)
+
 set(SOURCE_FILE "${CMAKE_BINARY_DIR}/external_lib_build/lib${Z0_SHARED_LIB}.dll")
 add_custom_command(
     TARGET ${PROJECT_NAME}
@@ -71,5 +64,5 @@ if(WIN32)
 	)
 endif()
 
-include(cmake/jolt.cmake)
 include(cmake/libraries.cmake)
+target_link_libraries(${PROJECT_NAME} std-cxx-modules)
