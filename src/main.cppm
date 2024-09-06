@@ -33,7 +33,7 @@ public:
         cube = Loader::loadModelFromFile("res/models/cube.glb");
         addChild(cube);
 
-        captureMouse();
+        //captureMouse();
 
         log("Main scene is ready");
     }
