@@ -24,6 +24,7 @@ public:
         player->setPosition({0.0f, 0.0f, 0.5f});
         addChild(player);
 
+
         cameraPivot = make_shared<Node>();
         player->addChild(cameraPivot);
 
@@ -33,7 +34,7 @@ public:
         cube = Loader::loadModelFromFile("res/models/cube.glb");
         addChild(cube);
 
-        captureMouse();
+        //captureMouse();
 
         log("Main scene is ready");
     }
