@@ -16,4 +16,5 @@ const ApplicationConfig applicationConfig {
     .loggingMode = LOGGING_FILE | LOGGING_WINDOW
 };
 
+
 Z0_APP(applicationConfig, std::make_shared<MainScene>())
