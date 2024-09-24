@@ -11,5 +11,5 @@ Starter project for the [ZeroZero engine](https://henrimichelon.github.io/ZeroZe
  - If needed adjust the `CMakeLists.txt` settings to your needs
  - `cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=Release`
  - `cmake --build build`
- - Update your PATH environment variable to include the `$CMAKE_CURRENT_BINARY_DIR/external_lib_build` where the ZeroZero DLL is built. 
+
     
