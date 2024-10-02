@@ -1,7 +1,7 @@
 module;
 import std;
 import glm;
-import Z0;
+import z0;
 using namespace std;
 using namespace glm;
 using namespace z0;

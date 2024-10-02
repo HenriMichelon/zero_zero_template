@@ -1,6 +1,6 @@
 #include <z0/macros.h>
 import std;
-import Z0;
+import z0;
 using namespace z0;
 
 import MyGame;
