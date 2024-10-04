@@ -15,7 +15,7 @@ public:
         addChild(make_shared<Environment>(vec4{1.0, 1.0, 1.0, 0.8f}));
         const auto directionalLight = make_shared<DirectionalLight>(
                 vec3{-1.0f, -1.0f, -1.0f},
-                vec4{-0.5f, -0.5f, 1.0f, 1.0f}
+                vec4{0.5f, 0.5f, 1.0f, 1.0f}
                 );
         directionalLight->setCastShadow(true);
         addChild(directionalLight);
