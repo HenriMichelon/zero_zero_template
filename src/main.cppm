@@ -11,14 +11,8 @@ export module MyGame;
 export class MainScene : public Node {
 public:
     void onReady() override {
-        addChild(make_shared<Skybox>("res/textures/StandardCubeMap.png"));
-        addChild(make_shared<Environment>(vec4{1.0, 1.0, 1.0, 0.8f}));
-        const auto directionalLight = make_shared<DirectionalLight>(
-                vec3{-1.0f, -1.0f, -1.0f},
-                vec4{0.5f, 0.5f, 1.0f, 1.0f}
-                );
-        directionalLight->setCastShadow(true);
-        addChild(directionalLight);
+        addChild(make_shared<Skybox>("res/textures/studio_small_08_2k.hdr"));
+        addChild(make_shared<Environment>(vec4{1.0, 1.0, 1.0, 1.0f}));
 
         player = make_shared<Node>();
         player->setPosition({0.0f, 0.0f, 0.5f});
@@ -30,7 +24,7 @@ public:
         const auto camera = make_shared<Camera>();
         cameraPivot->addChild(camera);
 
-        cube = Loader::loadModelFromFile("res/models/cube.glb");
+        cube = Loader::loadModelFromFile("res/models/cube.glb", false);
         addChild(cube);
 
         //captureMouse();
