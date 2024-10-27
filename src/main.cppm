@@ -43,7 +43,7 @@ public:
         const auto buttonQuit = make_shared<GButton>();
         menu->getWidget().add(buttonQuit, GWidget::LEFTCENTER, "50,40");
         buttonQuit->add(textQuit, GWidget::CENTER);
-        buttonQuit->connect(GEvent::OnClick, this, Signal::Handler(&MainScene::onMenuQuit));
+        buttonQuit->connect(GEvent::OnClick, this, SignalHandler(&MainScene::onMenuQuit));
 
         menu->setHeight(textQuit->getHeight() + padding * 4);
         menu->setWidth(textQuit->getWidth() + padding * 4);
