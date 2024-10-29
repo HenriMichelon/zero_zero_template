@@ -11,7 +11,7 @@ export module MyGame;
 export class MainScene : public Node {
 public:
     void onReady() override {
-        addChild(make_shared<Skybox>("res/textures/studio_small_08_2k.hdr"));
+        addChild(make_shared<Skybox>("app://res/textures/studio_small_08_2k.hdr"));
         addChild(make_shared<Environment>(vec4{1.0, 1.0, 1.0, 1.0f}));
 
         player = make_shared<Node>();
@@ -24,7 +24,7 @@ public:
         const auto camera = make_shared<Camera>();
         cameraPivot->addChild(camera);
 
-        cube = Loader::loadModelFromFile("res/models/cube.glb", false);
+        cube = Loader::loadModelFromFile("app://res/models/cube.glb", false);
         addChild(cube);
 
         //captureMouse();

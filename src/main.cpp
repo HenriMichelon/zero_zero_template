@@ -11,7 +11,7 @@ const ApplicationConfig applicationConfig{
         .windowMode = WINDOW_MODE_WINDOWED,
         .windowWidth = 1280,
         .windowHeight = 720,
-        .defaultFontName = "res/fonts/MontserratMedium.otf",
+        .defaultFontName = "app://res/fonts/MontserratMedium.otf",
         .defaultFontSize = 30,
         .loggingMode = LOGGING_FILE | LOGGING_WINDOW
 };
