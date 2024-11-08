@@ -8,12 +8,12 @@ import MyGame;
 const ApplicationConfig applicationConfig{
         .appName = "Example App",
         .appDir = "..",
-        .windowMode = WINDOW_MODE_WINDOWED,
+        .windowMode = WindowMode::WINDOWED,
         .windowWidth = 1280,
         .windowHeight = 720,
         .defaultFontName = "app://res/fonts/MontserratMedium.otf",
         .defaultFontSize = 30,
-        .loggingMode = LOGGING_FILE | LOGGING_WINDOW
+        .loggingMode = LOGGING_MODE_FILE | LOGGING_MODE_WINDOW
 };
 
 Z0_APP(applicationConfig, std::make_shared<MainScene>())

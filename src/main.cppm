@@ -24,7 +24,7 @@ public:
         const auto camera = make_shared<Camera>();
         cameraPivot->addChild(camera);
 
-        cube = Loader::loadModelFromFile("app://res/models/cube.glb", false);
+        cube = Loader::load("app://res/models/cube.glb");
         addChild(cube);
 
         //captureMouse();
@@ -35,7 +35,7 @@ public:
     void onEnterScene() override {
         constexpr float padding = 5.0f;
         const auto      menu    = make_shared<GWindow>(Rect{0, 0, 10, 10});
-        app().add(menu);
+        Application::get().add(menu);
         menu->getWidget().setDrawBackground(false);
         menu->getWidget().setPadding(padding);
 
@@ -43,7 +43,7 @@ public:
         const auto buttonQuit = make_shared<GButton>();
         menu->getWidget().add(buttonQuit, GWidget::LEFTCENTER, "50,40");
         buttonQuit->add(textQuit, GWidget::CENTER);
-        buttonQuit->connect(GEvent::OnClick, this, SignalHandler(&MainScene::onMenuQuit));
+        buttonQuit->connect(GEvent::OnClick, [this](const Signal::Parameters* p){this->onMenuQuit();});
 
         menu->setHeight(textQuit->getHeight() + padding * 4);
         menu->setWidth(textQuit->getWidth() + padding * 4);
@@ -76,21 +76,21 @@ public:
     }
 
     bool onInput(InputEvent &event) override {
-        if (mouseCaptured && (event.getType() == INPUT_EVENT_MOUSE_MOTION)) {
+        if (mouseCaptured && (event.getType() == InputEventType::MOUSE_MOTION)) {
             const auto &eventMouseMotion = dynamic_cast<InputEventMouseMotion &>(event);
             player->rotateY(-eventMouseMotion.getRelativeX() * mouseSensitivity);
             cameraPivot->rotateX(eventMouseMotion.getRelativeY() * mouseSensitivity * mouseInvertedAxisY);
             cameraPivot->setRotationX(std::clamp(cameraPivot->getRotationX(), maxCameraAngleDown, maxCameraAngleUp));
             return true;
         }
-        if ((event.getType() == INPUT_EVENT_MOUSE_BUTTON) && (!mouseCaptured)) {
+        if ((event.getType() == InputEventType::MOUSE_BUTTON) && (!mouseCaptured)) {
             const auto &eventMouseButton = dynamic_cast<InputEventMouseButton &>(event);
             if (!eventMouseButton.isPressed()) {
                 captureMouse();
                 return true;
             }
         }
-        if ((event.getType() == INPUT_EVENT_KEY) && mouseCaptured) {
+        if ((event.getType() == InputEventType::KEY) && mouseCaptured) {
             const auto &eventKey = dynamic_cast<InputEventKey &>(event);
             if ((eventKey.getKey() == KEY_ESCAPE) && !eventKey.isPressed()) {
                 releaseMouse();
@@ -121,18 +121,18 @@ private:
     shared_ptr<Node> cameraPivot;
 
     void onMenuQuit() {
-        app().quit();
+        Application::get().quit();
     }
 
     void captureMouse() {
         if (!mouseCaptured) {
-            Input::setMouseMode(MOUSE_MODE_HIDDEN_CAPTURED);
+            Input::setMouseMode(MouseMode::HIDDEN_CAPTURED);
             mouseCaptured = true;
         }
     }
 
     void releaseMouse() {
-        Input::setMouseMode(MOUSE_MODE_VISIBLE);
+        Input::setMouseMode(MouseMode::VISIBLE);
         mouseCaptured = false;
     }
 };
