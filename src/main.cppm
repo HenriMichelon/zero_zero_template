@@ -43,7 +43,7 @@ public:
         const auto buttonQuit = make_shared<GButton>();
         menu->getWidget().add(buttonQuit, GWidget::LEFTCENTER, "50,40");
         buttonQuit->add(textQuit, GWidget::CENTER);
-        buttonQuit->connect(GEvent::OnClick, [this](const Signal::Parameters* p){this->onMenuQuit();});
+        buttonQuit->connect(GEvent::OnClick, []{Application::get().quit();});
 
         menu->setHeight(textQuit->getHeight() + padding * 4);
         menu->setWidth(textQuit->getWidth() + padding * 4);
@@ -119,10 +119,6 @@ private:
     shared_ptr<Node> player;
     shared_ptr<Node> cube;
     shared_ptr<Node> cameraPivot;
-
-    void onMenuQuit() {
-        Application::get().quit();
-    }
 
     void captureMouse() {
         if (!mouseCaptured) {
