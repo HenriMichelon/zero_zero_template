@@ -1,6 +1,10 @@
 module;
-import std;
+#ifdef _MSC_VER
+#include <glm/glm.hpp>
+#else
 import glm;
+#endif
+import std;
 import z0;
 using namespace std;
 using namespace glm;

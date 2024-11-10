@@ -4,6 +4,14 @@ cmake_policy(SET CMP0002 NEW)
 project(template)
 include(.env.cmake)
 
+if(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE Release)
+endif()
+
+# Auto detect Vulkan SDK, required to compile the shaders
+find_package(Vulkan REQUIRED)
+add_compile_definitions(GLM_ENABLE_EXPERIMENTAL)
+
 # Engine sources
 add_subdirectory(${Z0_PROJECT_DIR} external_lib_build)
 set(Z0_INCLUDE_DIR ${Z0_PROJECT_DIR}/include)
@@ -52,19 +60,54 @@ add_dependencies(post_build_shaders ${PROJECT_NAME}_shaders)
 add_dependencies(${PROJECT_NAME}_shaders ${Z0_TARGET})
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIR} ${Z0_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} ${Z0_TARGET})
-target_compile_options(${PROJECT_NAME} PRIVATE
-		$<$<CXX_COMPILER_ID:GNU>:-Werror>
-		$<$<CXX_COMPILER_ID:Clang>:-Werror>
-		$<$<CXX_COMPILER_ID:MSVC>:/WX>
-)
+if(MSVC)
+	target_compile_options(${PROJECT_NAME} PRIVATE
+			/nologo
+			/W2
+			/WX
+			/std:c++latest
+			/experimental:module
+			/fp:fast
+	)
+	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+		target_compile_options(${PROJECT_NAME} PRIVATE
+				/Od
+				/GS
+				/Ob0
+				/RTC1
+		)
+	else()
+		target_compile_options(${PROJECT_NAME} PRIVATE
+				/O2
+				/GS-
+				/Gy
+				/Oi
+				/Ot
+		)
+	endif()
+	set(USE_STATIC_MSVC_RUNTIME_LIBRARY OFF)
+else()
+	target_compile_options(${PROJECT_NAME} PRIVATE
+			-Wno-deprecated-declarations
+			-Wno-nullability-completeness
+			-Werror
+	)
+	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+		target_compile_options(${PROJECT_NAME} PRIVATE
+				-O0
+		)
+	else()
+		target_compile_options(${PROJECT_NAME} PRIVATE
+				-O3
+		)
+	endif()
+endif()
 
 if(WIN32)
 	if(MINGW)
 		target_link_options(${PROJECT_NAME} PRIVATE "-mwindows")
 	endif()
 	set_target_properties(${PROJECT_NAME} PROPERTIES
-			WIN32_EXECUTABLE TRUE
-	)
+			WIN32_EXECUTABLE TRUE)
 endif()
 
-include(cmake/libraries.cmake)
