@@ -1,8 +1,5 @@
 module;
-#include <z0/z0.h>
-using namespace std;
-using namespace glm;
-using namespace z0;
+#include "libraries.h"
 
 export module MyGame;
 
@@ -22,7 +19,7 @@ public:
         const auto camera = make_shared<Camera>();
         cameraPivot->addChild(camera);
 
-        cube = Loader::load("app://res/models/cube.glb");
+        cube = Loader::load("app://res/models/cube.zres");
         addChild(cube);
 
         //captureMouse();
@@ -32,16 +29,16 @@ public:
 
     void onEnterScene() override {
         constexpr float padding = 5.0f;
-        const auto      menu    = make_shared<GWindow>(Rect{0, 0, 10, 10});
+        const auto      menu    = make_shared<ui::Window>(ui::Rect{0, 0, 10, 10});
         Application::get().add(menu);
         menu->getWidget().setDrawBackground(false);
         menu->getWidget().setPadding(padding);
 
-        const auto textQuit   = make_shared<GText>("Quit");
-        const auto buttonQuit = make_shared<GButton>();
-        menu->getWidget().add(buttonQuit, GWidget::LEFTCENTER, "50,40");
-        buttonQuit->add(textQuit, GWidget::CENTER);
-        buttonQuit->connect(GEvent::OnClick, []{Application::get().quit();});
+        const auto textQuit   = make_shared<ui::Text>("Quit");
+        const auto buttonQuit = make_shared<ui::Button>();
+        menu->getWidget().add(buttonQuit, ui::Widget::LEFTCENTER, "50,40");
+        buttonQuit->add(textQuit, ui::Widget::CENTER);
+        buttonQuit->connect(ui::Event::OnClick, []{Application::get().quit();});
 
         menu->setHeight(textQuit->getHeight() + padding * 4);
         menu->setWidth(textQuit->getWidth() + padding * 4);

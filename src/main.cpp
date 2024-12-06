@@ -13,7 +13,7 @@ const ApplicationConfig applicationConfig{
         .windowHeight = 720,
         .defaultFontName = "app://res/fonts/MontserratMedium.otf",
         .defaultFontSize = 30,
-        .loggingMode = LOGGING_MODE_FILE | LOGGING_MODE_WINDOW
+        .loggingMode = LOGGING_MODE_FILE | LOGGING_MODE_STDOUT
 };
 
 Z0_APP(applicationConfig, std::make_shared<MainScene>())
