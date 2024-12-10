@@ -30,7 +30,7 @@ public:
     void onEnterScene() override {
         constexpr float padding = 5.0f;
         const auto      menu    = make_shared<ui::Window>(ui::Rect{0, 0, 10, 10});
-        Application::get().add(menu);
+        app().add(menu);
         menu->getWidget().setDrawBackground(false);
         menu->getWidget().setPadding(padding);
 
@@ -38,7 +38,7 @@ public:
         const auto buttonQuit = make_shared<ui::Button>();
         menu->getWidget().add(buttonQuit, ui::Widget::LEFTCENTER, "50,40");
         buttonQuit->add(textQuit, ui::Widget::CENTER);
-        buttonQuit->connect(ui::Event::OnClick, []{Application::get().quit();});
+        buttonQuit->connect(ui::Event::OnClick, []{app().quit();});
 
         menu->setHeight(textQuit->getHeight() + padding * 4);
         menu->setWidth(textQuit->getWidth() + padding * 4);
@@ -50,7 +50,7 @@ public:
         currentState  = State{};
 
         if (mouseCaptured) {
-            vec2 inputDir = Input::getKeyboardVector(KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN);
+            const vec2 inputDir = Input::getKeyboardVector(KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN);
             if (inputDir != VEC2ZERO) {
                 currentState.lookDir = inputDir * viewSensitivity * delta;
             }
