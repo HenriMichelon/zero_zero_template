@@ -24,12 +24,12 @@ public:
 
         //captureMouse();
 
-        log("Main scene is ready");
+        Log::game1 << "Main scene is ready" << endl;
     }
 
     void onEnterScene() override {
         constexpr float padding = 5.0f;
-        const auto      menu    = make_shared<ui::Window>(ui::Rect{0, 0, 10, 10});
+        const auto      menu    = make_shared<ui::Window>(ui::Rect{0, 0, 1000, 10});
         app().add(menu);
         menu->getWidget().setDrawBackground(false);
         menu->getWidget().setPadding(padding);
