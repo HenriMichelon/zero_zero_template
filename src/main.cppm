@@ -24,7 +24,7 @@ public:
 
         //captureMouse();
 
-        log("Main scene is ready");
+        GAME1("Main scene is ready");
     }
 
     void onEnterScene() override {
