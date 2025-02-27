@@ -35,8 +35,8 @@ public:
 
         const auto buttonQuit = menu->getWidget().add(
             make_shared<ui::Button>(),
-            ui::Widget::LEFTCENTER, ""
-                                    "50,40");
+            ui::Widget::LEFTCENTER,
+            "50,40");
         const auto textQuit = buttonQuit->add(
             make_shared<ui::Text>("Quit"),
             ui::Widget::CENTER);
