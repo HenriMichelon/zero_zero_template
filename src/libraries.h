@@ -8,6 +8,8 @@
 
 #ifdef _MSC_VER
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 #else
 import glm;
 #endif
@@ -17,3 +19,4 @@ import z0;
 using namespace glm;
 using namespace std;
 using namespace z0;
+

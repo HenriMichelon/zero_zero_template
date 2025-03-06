@@ -24,7 +24,7 @@ public:
 
         //captureMouse();
 
-        Log::game1 << "Main scene is ready" << endl;
+        GAME1("Main scene is ready");
     }
 
     void onEnterScene() override {
@@ -34,10 +34,13 @@ public:
         menu->getWidget().setDrawBackground(false);
         menu->getWidget().setPadding(padding);
 
-        const auto textQuit   = make_shared<ui::Text>("Quit");
-        const auto buttonQuit = make_shared<ui::Button>();
-        menu->getWidget().add(buttonQuit, ui::Widget::LEFTCENTER, "50,40");
-        buttonQuit->add(textQuit, ui::Widget::CENTER);
+        const auto buttonQuit = menu->getWidget().add(
+           make_shared<ui::Button>(),
+           ui::Widget::LEFTCENTER,
+           "50,40");
+        const auto textQuit = buttonQuit->add(
+            make_shared<ui::Text>("Quit"),
+            ui::Widget::CENTER);
         buttonQuit->connect(ui::Event::OnClick, []{app().quit();});
 
         menu->setHeight(textQuit->getHeight() + padding * 4);
@@ -57,8 +60,7 @@ public:
         }
 
         const auto angle = delta * radians(90.0f) / 2;
-        cube->rotateX(angle);
-        cube->rotateZ(angle);
+        cube->rotate(angleAxis(angle, vec3{0.5f, 0.0f, 0.5f}));
     }
 
     void onProcess(const float alpha) override {
